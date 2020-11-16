@@ -1,0 +1,28 @@
+nav {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+img {
+    max-height: 50px;
+    cursor: pointer;
+    padding: 2px;
+    outline: none;
+}
+
+span {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+span:hover{
+    transition: all ease 0.15s;
+    background-color: rgba(192, 192, 192, 0.2);
+}
+
+@media screen and (max-width: 500px) {
+    :host {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+}

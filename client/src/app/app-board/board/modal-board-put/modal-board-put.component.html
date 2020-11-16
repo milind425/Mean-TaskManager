@@ -1,0 +1,16 @@
+<form [formGroup]="modalForm">
+  <h2 style="text-align: center; color: rgba(0,0,0,0.5); margin-bottom: 20px;">Change Board</h2>
+
+  <mat-form-field style="margin-bottom: 20px; width: 100%;">
+    <textarea matInput #name maxlength="256" placeholder="Change board name" matTextareaAutosize matAutosizeMinRows="2"
+              matAutosizeMaxRows="5" formControlName="name" required></textarea>
+    <mat-error *ngIf="modalForm.controls['name'].invalid">{{getErrorMessageName()}}</mat-error>
+    <mat-hint align="end">{{name.value.length}} / 256</mat-hint>
+  </mat-form-field>
+
+
+  <div mat-dialog-actions style="justify-content: space-between;">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="modalForm" cdkFocusInitial [disabled]="modalForm.invalid">Ok</button>
+  </div>
+</form>

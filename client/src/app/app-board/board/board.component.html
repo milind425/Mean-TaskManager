@@ -1,0 +1,82 @@
+<app-menu [ngStyle]="{'color': 'black'}"></app-menu>
+
+<section id="board" class="container-fluid">
+  <div class="container">
+    <div class="d-flex align-items-center">
+      <h1 class="title">Chore List</h1>
+      <button class="ml-auto d-flex justify-content-center create_board" (mousedown)="checkAuth($event)" [disabled]="!login" (click)="postBoard()">
+        <mat-icon class="align-self-center">queue_play_next</mat-icon>
+      </button>
+    </div>
+    <p class="description">Planning chores is very important!</p>
+
+    <div class="row" style="padding: 15px; overflow-x: auto; flex-wrap: nowrap" *ngIf="this.loading === true">
+
+      <div
+              class="col-12 col-sm-6 col-md-4 col-lg-3 box"
+              droppable
+              (onDrop)="onItemDrop($event, board._id)"
+              *ngFor="let board of boards; let i = index;"
+              [@fadeInDown]=""
+              (mousedown)="checkAuth($event)">
+        <header class="d-flex align-items-center">
+          <h5>{{board.name}}</h5>
+          <!--edit menu-->
+          <button mat-icon-button (mousedown)="checkAuth($event)" [disabled]="!login" [matMenuTriggerFor]="menu" class="ml-auto">
+            <mat-icon style="color: rgba(0, 0, 0, 0.22);">more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="postBoardItem(board._id)">
+              <mat-icon style="color: rgb(72,142,255);">plus_one</mat-icon>
+              <span style="color: rgb(72,142,255);">Make a new chore</span>
+            </button>
+            <!--disabled-->
+            <button mat-menu-item (click)="putBoard(board._id)">
+              <mat-icon>mode_edit</mat-icon>
+              <span>Edit board</span>
+            </button>
+            <button mat-menu-item (click)="deleteBoard(board._id)">
+              <mat-icon style="color: #f10000">delete_forever</mat-icon>
+              <span style="color: #f10000">Delete board</span>
+            </button>
+          </mat-menu>
+          <!--edit menu-->
+        </header>
+
+        <ul class="list-group">
+          <li
+                  draggable
+                  *ngFor="let item of board.items"
+                  [dragData]="item" class="list-group-item" [dragClass]="'active'"
+                  [@fadeInUp]="">
+            <div class="d-flex align-items-center">
+              <span>{{item.name}}</span>
+
+              <div class="ml-auto">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="ml-auto" [disabled]="!login">
+                  <mat-icon style="color: rgba(0, 0, 0, 0.22);">more_horiz</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <!--disabled-->
+                  <button mat-menu-item (click)="putItem(item._id)">
+                    <mat-icon>mode_edit</mat-icon>
+                    <span>Edit chore</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteItem(item._id)">
+                    <mat-icon style="color: #f10000">delete_forever</mat-icon>
+                    <span style="color: #f10000">Delete chore</span>
+                  </button>
+                </mat-menu>
+                <!--edit menu-->
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-3" style="flex: 0; padding: 1px;"></div>
+    </div>
+  </div>
+</section>
+
+<app-chat-widget></app-chat-widget>

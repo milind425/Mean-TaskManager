@@ -1,0 +1,32 @@
+<section id="chat" [ngClass]="{'active': this.active}">
+
+  <header class="d-flex align-items-center" (click)="activeWidget()">
+    <h6>Chat widget</h6>
+  </header>
+
+  <section id="content" #item>
+    <div class="message" *ngFor="let message of messages">
+      <span>{{message.username}}:</span>
+      <p>{{message.content}}</p>
+    </div>
+  </section>
+
+  <footer class="d-flex align-items-center">
+    <form class="example-form" [formGroup]="messageForm" *ngIf="login === true">
+
+      <mat-form-field class="example-full-width">
+        <input matInput #message maxlength="256" placeholder="Message" formControlName="message">
+        <mat-hint align="start"><strong>Don't disclose personal information</strong> </mat-hint>
+        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+      </mat-form-field>
+
+      <button (click)="sendMessage(messageForm)" (submit)="sendMessage(messageForm)">SEND</button>
+
+    </form>
+
+    <div *ngIf="login === false">
+      <b>You need to be logged in</b>
+    </div>
+  </footer>
+
+</section>

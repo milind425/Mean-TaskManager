@@ -1,0 +1,7 @@
+<nav class="navbar container">
+  <img [src]="logo" alt="Chore List" routerLink="">
+  <span routerLink="">Home</span>
+  <span routerLink="/board">Board</span>
+  <span *ngIf="login === false" mat-raised-button (click)="openDialog()">Login</span>
+  <span *ngIf="login === true" mat-raised-button (click)="logoutAuth()">Logout</span>
+</nav>
